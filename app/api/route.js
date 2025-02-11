@@ -42,13 +42,6 @@ export async function GET() {
     // Fetch the 10 most recent weather searches using the utility function
     const recentSearches = await getRecentSearches();
 
-    if (recentSearches.length === 0) {
-      return NextResponse.json(
-        { message: "No recent searches found" },
-        { status: 200 }
-      );
-    }
-
     return NextResponse.json(recentSearches, { status: 200 });
   } catch (error) {
     console.error("Error in GET handler:", error);

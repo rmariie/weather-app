@@ -48,10 +48,16 @@ export default function Home() {
   const loadRecentSearches = async () => {
     try {
       const response = await fetch("/api");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch recent searches");
+      }
+
       const searches = await response.json(); // Fetch recent searches from API
       setRecentSearches(searches);
     } catch (err) {
       console.error("Failed to load recent searches:", err);
+      setError("Failed to load recent searches");
     }
   };
 
