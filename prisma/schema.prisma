@@ -1,0 +1,15 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model WeatherSearch {
+  id        String   @id @default(cuid())
+  city      String
+  country   String
+  createdAt DateTime @default(now())
+}
