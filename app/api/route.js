@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
-const apiKey = process.env.OPENWEATHER_API_KEY;
+const apiKey = "9fa59f2bc24d18b96196511ef37f74f1";
 
 // Handle POST requests
 export async function POST(request) {
