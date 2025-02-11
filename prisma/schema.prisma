@@ -14,7 +14,7 @@ datasource db {
 }
 
 model WeatherSearch {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   city      String
   country   String
   createdAt DateTime @default(now())
