@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+import { saveSearch, getRecentSearches } from "../../lib/recentlysearched";
 
 const prisma = new PrismaClient();
 const apiKey = "9fa59f2bc24d18b96196511ef37f74f1";
@@ -42,7 +43,7 @@ export async function POST(request) {
 // Handle GET requests
 export async function GET() {
   try {
-    // Fetch the 10 most recent weather searches
+    // Fetch the 10 most recent weather searches using Prisma
     const searches = await prisma.weatherSearch.findMany({
       orderBy: { createdAt: "desc" },
       take: 10,
@@ -52,21 +53,8 @@ export async function GET() {
   } catch (error) {
     console.error("Error in GET handler:", error);
     return NextResponse.json(
-      { error: "Failed to retrieve data" },
+      { error: "Failed to retrieve recent searches" },
       { status: 500 }
     );
   }
 }
-// if (req.method === "GET") {
-//   try {
-//     const searches = await prisma.weatherSearch.findMany({
-//       orderBy: { createdAt: "desc" },
-//       take: 10, // Limit to the 10 most recent
-//     });
-
-//     return res.status(200).json(searches);
-//   } catch (error) {
-//     console.error("Error retrieving searches:", error);
-//     return res.status(500).json({ error: "Failed to retrieve recent searches" });
-//   }
-// }

@@ -100,7 +100,7 @@ export default function Home() {
           type="text"
           placeholder="Enter a country name"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
+          onChange={(e) => setCountry(e.target.value)} // Removed duplicate onChange
           style={{
             padding: "0.5rem",
             fontSize: "1rem",
