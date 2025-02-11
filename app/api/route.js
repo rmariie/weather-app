@@ -57,16 +57,16 @@ export async function GET() {
     );
   }
 }
-if (req.method === "GET") {
-  try {
-    const searches = await prisma.weatherSearch.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 10, // Limit to the 10 most recent
-    });
+// if (req.method === "GET") {
+//   try {
+//     const searches = await prisma.weatherSearch.findMany({
+//       orderBy: { createdAt: "desc" },
+//       take: 10, // Limit to the 10 most recent
+//     });
 
-    return res.status(200).json(searches);
-  } catch (error) {
-    console.error("Error retrieving searches:", error);
-    return res.status(500).json({ error: "Failed to retrieve recent searches" });
-  }
-}
+//     return res.status(200).json(searches);
+//   } catch (error) {
+//     console.error("Error retrieving searches:", error);
+//     return res.status(500).json({ error: "Failed to retrieve recent searches" });
+//   }
+// }
