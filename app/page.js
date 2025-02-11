@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getRecentSearches } from "../lib/recentlysearched"; // Import your recently searched function
 
 export default function Home() {
   const [city, setCity] = useState("");
@@ -48,7 +47,8 @@ export default function Home() {
 
   const loadRecentSearches = async () => {
     try {
-      const searches = await getRecentSearches(); // Fetch recent searches
+      const response = await fetch("/api");
+      const searches = await response.json(); // Fetch recent searches from API
       setRecentSearches(searches);
     } catch (err) {
       console.error("Failed to load recent searches:", err);
@@ -147,11 +147,15 @@ export default function Home() {
       <section>
         <h2>Recently Searched</h2>
         <ul>
-          {recentSearches.map((search, index) => (
-            <li key={index}>
-              {search.city}, {search.country}
-            </li>
-          ))}
+          {recentSearches.length === 0 ? (
+            <li>No recent searches</li>
+          ) : (
+            recentSearches.map((search, index) => (
+              <li key={index}>
+                {search.city}, {search.country}
+              </li>
+            ))
+          )}
         </ul>
       </section>
     </main>
