@@ -54,7 +54,7 @@ export default function Home() {
       }}
     >
       <h1 style={{ fontSize: "2.5rem", color: "#0070f3", marginBottom: "1rem" }}>
-        Weather Finder
+        Today's Weather 
       </h1>
       <form
         onSubmit={(e) => {
@@ -65,7 +65,7 @@ export default function Home() {
       >
         <input
           type="text"
-          placeholder="Enter city name"
+          placeholder="Enter a city name"
           value={city}
           onChange={(e) => setCity(e.target.value)}  // Update city state
           style={{
@@ -78,7 +78,7 @@ export default function Home() {
         />
         <input
           type="text"
-          placeholder="Enter country"
+          placeholder="Enter a country name"
           value={country}
           onChange={(e) => setCountry(e.target.value)}  // Update country state
           style={{
@@ -101,7 +101,7 @@ export default function Home() {
             cursor: "pointer",
           }}
         >
-          Get Weather
+          search
         </button>
       </form>
 

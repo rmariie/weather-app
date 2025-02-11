@@ -10,7 +10,7 @@ const BackgroundImage = () => {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundImage: "url('/images/background.jpg')",
+        backgroundImage: "url('/public/images/pic.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         zIndex: -1, // So the background stays behind other content
