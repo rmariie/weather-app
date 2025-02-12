@@ -26,8 +26,14 @@ export async function POST(request) {
     }
 
     // Save the search to the database
+    // await prisma.weatherSearch.create({
+    //   data: { city, country },
+    // });
     await prisma.weatherSearch.create({
-      data: { city, country },
+      data: { 
+        city: data.city, 
+        country: data.country
+      },
     });
 
     return NextResponse.json(weatherData, { status: 200 });

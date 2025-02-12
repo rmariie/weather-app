@@ -1,7 +1,7 @@
 "use client";
 
+import { Prisma } from "@prisma/client";
 import React, { useState } from "react";
-
 export default function Home() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -31,6 +31,7 @@ export default function Home() {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`
       );
+
   
 
       if (!response.ok) {
@@ -41,6 +42,17 @@ export default function Home() {
       const data = await response.json();
       setWeatherData(data);  // Store weather data in state
       setError(null);
+      console.log(data);
+      console.dir(data)
+     
+      // await fetch("/api/weatherSearch", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ city: data.name, country: data.sys.country }), 
+      // });
+      
     } catch (err) {
       setWeatherData(null);
       setError(err.message);  // Display any error
