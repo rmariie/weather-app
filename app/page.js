@@ -19,14 +19,19 @@ export default function Home() {
     setError(null);
 
     try {
+      const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
       // Update fetch URL to point to the correct API route in the 'api' folder
-      const response = await fetch("/api/weather", {  // Assuming your route.js is directly in the 'api' folder
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ city, country }),  // Pass city and country
-      });
+      // const response = await fetch("/api/weather", {  // Assuming your route.js is directly in the 'api' folder
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ city, country }),  // Pass city and country
+      // });
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`
+      );
+  
 
       if (!response.ok) {
         const errorData = await response.json();
