@@ -1,7 +1,7 @@
 "use client";
 
-import { Prisma } from "@prisma/client";
 import React, { useState } from "react";
+
 export default function Home() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -10,8 +10,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const fetchWeather = async () => {
-    if (!city.trim() || !country.trim()) {
-      setError("City and country cannot be empty");
+    if (!city.trim()) {
+      setError("City cannot be empty");
       return;
     }
 
@@ -19,20 +19,19 @@ export default function Home() {
     setError(null);
 
     try {
-      const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
-      // Update fetch URL to point to the correct API route in the 'api' folder
-      // const response = await fetch("/api/weather", {  // Assuming your route.js is directly in the 'api' folder
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ city, country }),  // Pass city and country
-      // });
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`
-      );
+      // Call Next.js API route
+      const response = await fetch("/api/weather", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ city, country }),
+      });
 
-  
+      // Call OpenWeather API directly with Vercel fix
+      // const response = await fetch(
+      //   `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`
+      // );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -40,22 +39,11 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setWeatherData(data);  // Store weather data in state
+      setWeatherData(data);
       setError(null);
-      console.log(data);
-      console.dir(data)
-     
-      // await fetch("/api/weatherSearch", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ city: data.name, country: data.sys.country }), 
-      // });
-      
     } catch (err) {
       setWeatherData(null);
-      setError(err.message);  // Display any error
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -75,7 +63,7 @@ export default function Home() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          fetchWeather();  // Call fetchWeather on form submit
+          fetchWeather();
         }}
         style={{ marginBottom: "2rem" }}
       >
@@ -83,7 +71,7 @@ export default function Home() {
           type="text"
           placeholder="Enter a city name"
           value={city}
-          onChange={(e) => setCity(e.target.value)}  // Update city state
+          onChange={(e) => setCity(e.target.value)}
           style={{
             padding: "0.5rem",
             fontSize: "1rem",
@@ -96,7 +84,7 @@ export default function Home() {
           type="text"
           placeholder="Enter a country name"
           value={country}
-          onChange={(e) => setCountry(e.target.value)}  // Update country state
+          onChange={(e) => setCountry(e.target.value)}
           style={{
             padding: "0.5rem",
             fontSize: "1rem",
