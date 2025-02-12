@@ -19,15 +19,14 @@ export default function Home() {
     setError(null);
 
     try {
-      // Send POST request to backend, assuming your route is /api/weather
-      const response = await fetch("/api", {  // Use "/api" as the endpoint
+      // Update fetch URL to point to the correct API route in the 'api' folder
+      const response = await fetch("/api", {  // Assuming your route.js is directly in the 'api' folder
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ city, country }), // Pass city and country
+        body: JSON.stringify({ city, country }),  // Pass city and country
       });
-      
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -54,7 +53,7 @@ export default function Home() {
       }}
     >
       <h1 style={{ fontSize: "2.5rem", color: "#0070f3", marginBottom: "1rem" }}>
-        Today's Weather 
+        Today's Weather
       </h1>
       <form
         onSubmit={(e) => {
@@ -101,7 +100,7 @@ export default function Home() {
             cursor: "pointer",
           }}
         >
-          search
+          Search
         </button>
       </form>
 
