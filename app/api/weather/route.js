@@ -32,6 +32,10 @@ export async function POST(request) {
       },
     });
 
+    // await prisma.weatherSearch.findMany()({
+    //   where?: { city: weatherData.name, country: weatherData.sys.country },
+    // });
+
     return NextResponse.json(weatherData, { status: 200 });
   } catch (error) {
     console.error("Error in POST handler:", error);

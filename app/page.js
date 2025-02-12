@@ -1,5 +1,6 @@
-"use client";
+"use client"; // Add this directive at the top
 
+import RecentSearches from "@/components/RecentSearches";
 import React, { useState } from "react";
 
 export default function Home() {
@@ -8,6 +9,8 @@ export default function Home() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [showRecentSearches, setShowRecentSearches] = useState(false); // State to toggle the visibility of recent searches
 
   const fetchWeather = async () => {
     if (!city.trim()) {
@@ -19,19 +22,13 @@ export default function Home() {
     setError(null);
 
     try {
-      // Call Next.js API route
-      const response = await fetch("/api/weather", { 
+      const response = await fetch("/api/weather", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ city, country }),
       });
-
-      // Call OpenWeather API directly with Vercel fix
-      // const response = await fetch(
-      //   `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`
-      // );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -133,6 +130,26 @@ export default function Home() {
           </p>
         </div>
       )}
+
+      {/* Button to toggle the visibility of recent searches */}
+      <button
+        onClick={() => setShowRecentSearches(!showRecentSearches)}
+        style={{
+          padding: "0.5rem 1rem",
+          fontSize: "1rem",
+          marginTop: "2rem",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        {showRecentSearches ? "Hide Recent Searches" : "Show Recent Searches"}
+      </button>
+
+      {/* Render RecentSearches component conditionally */}
+      {showRecentSearches && <RecentSearches />}
     </main>
   );
 }
