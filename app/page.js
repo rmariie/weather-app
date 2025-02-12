@@ -20,7 +20,7 @@ export default function Home() {
 
     try {
       // Update fetch URL to point to the correct API route in the 'api' folder
-      const response = await fetch("/api", {  // Assuming your route.js is directly in the 'api' folder
+      const response = await fetch("/api/weather", {  // Assuming your route.js is directly in the 'api' folder
         method: "POST",
         headers: {
           "Content-Type": "application/json",
