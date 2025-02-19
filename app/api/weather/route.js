@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
 
-// Handle POST requests
+// Handle POST requests to fetch weather data and save it to the database
 export async function POST(request) {
   try {
     const { city, country = "" } = await request.json();
@@ -26,27 +26,23 @@ export async function POST(request) {
 
     // Save the weather search to the database
     await prisma.weatherSearch.create({
-      data: { 
-        city: weatherData.name, 
+      data: {
+        city: weatherData.name,
         country: weatherData.sys.country,
       },
     });
-
-    // await prisma.weatherSearch.findMany()({
-    //   where?: { city: weatherData.name, country: weatherData.sys.country },
-    // });
 
     return NextResponse.json(weatherData, { status: 200 });
   } catch (error) {
     console.error("Error in POST handler:", error);
     return NextResponse.json(
-      { error: "Failed to fetch or save weather data" },
+      { error: "Failed to fetch or save weather data." },
       { status: 500 }
     );
   }
 }
 
-// Handle GET requests to retrieve recent searches
+// Handle GET requests to retrieve recent searches from the database
 export async function GET() {
   try {
     const searches = await prisma.weatherSearch.findMany({
@@ -58,7 +54,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error in GET handler:", error);
     return NextResponse.json(
-      { error: "Failed to retrieve data" },
+      { error: "Failed to retrieve recent searches." },
       { status: 500 }
     );
   }
