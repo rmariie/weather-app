@@ -2,39 +2,41 @@
 
 import React, { useEffect, useState } from "react";
 
-export default function RecentSearches() {
-  const [recentSearches, setRecentSearches] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+export default function RecentSearches() { // Component to display recent searches
+  const [recentSearches, setRecentSearches] = useState([]); // State to store recent searches
+  const [loading, setLoading] = useState(false); // State to track loading state
+  const [error, setError] = useState(null); // State to track error state 
+
 
   // Fetch recent searches from the API
   const fetchRecentSearches = async () => {
-    setLoading(true);
-    setError(null);
+    setLoading(true); // Set loading state to true its a function to fetch recent searchesm that sets the loading
+    // state to true, clears any previous errors, and fetches the recent searches from the API.
+    setError(null); // null is to clear the error state
 
     try {
-      const response = await fetch("/api/weather", { method: "GET" });
+      const response = await fetch("/api/weather", { method: "GET" }); // Fetch recent searches from the API
       // Ensure the correct API endpoint
 
       if (!response.ok) {
-        throw new Error("Failed to fetch recent searches. Please try again later.");
+        throw new Error("Failed to fetch recent searches. Please try again later."); // Throw an error if the response is not ok when fetching recent searches
       }
 
-      const data = await response.json();
-      if (!data.length) {
-        setError("No recent searches found.");
+      const data = await response.json(); // Parse the response body as JSON data and store it in the data variable
+      if (!data.length) { // Check if the data array is empty
+        setError("No recent searches found."); //if it is empty, set an error message
       } else {
-        setRecentSearches(data);
+        setRecentSearches(data); //else, set the recent searches state with the data
       }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    } catch (err) { // Catch any errors that occur during the fetch request
+      setError(err.message); // Set the error state with the error message
+    } finally { // Finally block to set the loading state to false
+      setLoading(false); // Set the loading state to false
     }
   };
 
-  useEffect(() => {
-    fetchRecentSearches();
+  useEffect(() => { //this function is called when the component mounts to fetch the recent searches
+    fetchRecentSearches(); // Call the fetchRecentSearches function
   }, []);
 
   return (

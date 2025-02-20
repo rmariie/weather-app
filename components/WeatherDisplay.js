@@ -1,7 +1,7 @@
-"use client";
+"use client"; //client side component
 
-export default function WeatherDisplay({ weatherData }) {
-  if (!weatherData) return null;
+export default function WeatherDisplay({ weatherData }) { //This is a simple component that displays the weather data. It takes in the weatherData prop and displays the city name, country, temperature, and weather description. If there is no weather data, it returns null.
+  if (!weatherData) return null; //If there is no weather data, it returns null
 
   return (
     <div
